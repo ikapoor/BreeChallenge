@@ -1,6 +1,3 @@
-Certainly! Based on the `package.json` file you provided, it looks like the backend server and workers are set up to be run using TypeScript with `ts-node`. Below is a step-by-step guide on how to set up and run the backend server and workers using the commands specified in your `package.json`.
-
-````markdown
 # Project Setup Guide
 
 ## Prerequisites
@@ -22,6 +19,7 @@ Make sure Redis is installed and running on port 6379. Follow the instructions f
 brew install redis
 brew services start redis
 ```
+
 ````
 
 #### On Ubuntu:
@@ -78,3 +76,4 @@ cd path/to/frontend
 npm install
 npm run dev
 ```
+````
