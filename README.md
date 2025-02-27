@@ -1,3 +1,4 @@
+````markdown
 # Project Setup Guide
 
 ## Prerequisites
@@ -19,7 +20,6 @@ Make sure Redis is installed and running on port 6379. Follow the instructions f
 brew install redis
 brew services start redis
 ```
-
 ````
 
 #### On Ubuntu:
@@ -76,4 +76,3 @@ cd path/to/frontend
 npm install
 npm run dev
 ```
-````
