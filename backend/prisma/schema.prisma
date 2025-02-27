@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  password_hash String
+  is_admin Boolean @default(false)
+  balance Int @default(0)
+    // Add these relation fields
+  lineOfCreditApplications LineOfCreditApplication[]
+  transactions Transaction[]
+}
+
+
+enum ApplicationStatus {
+  OPEN
+  CANCELLED
+  REJECTED
+  OUTSTANDING
+  REPAID
+}
+
+model LineOfCreditApplication {
+  id Int @id @default(autoincrement())
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status ApplicationStatus
+  amount Int
+  amount_disbursed Int @default(0)
+  expressDelivery Boolean @default(false)
+  transactions Transaction[]
+}
+
+enum TransactionType {
+  DISBURSEMENT
+  REPAYMENT
+  TIP
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  amount Int
+  type TransactionType
+  application_id Int
+  application LineOfCreditApplication @relation(fields: [application_id], references: [id])
+}
+
